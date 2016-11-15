@@ -61,6 +61,9 @@ CookieStore.prototype.calcCookiesAtHour = function() {
   return cookiesAtHourArray;
 };
 
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// EVERYTHING ABOVE THIS LINE IS GOOD--EVERYTHING ABOVE THIS LINE IS GOOD---EVERYTHING ABOVE THIS LINE IS GOOD----
+
 // Display the values of each array as a table in the browser
 CookieStore.prototype.displayToHtml = function() {
   var storeTable = document.getElementById('store_table');
@@ -84,8 +87,7 @@ CookieStore.prototype.displayToHtml = function() {
   storeTable.appendChild(tableRow);
 };
 
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-// EVERYTHING ABOVE THIS LINE IS GOOD--EVERYTHING ABOVE THIS LINE IS GOOD---EVERYTHING ABOVE THIS LINE IS GOOD----
+
 function () {
   // Locate the node
   var contentArea = document.getElementById('first_and_pike_hours_list');
