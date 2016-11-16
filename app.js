@@ -8,6 +8,7 @@ Description: cookie stand lab day 2
 
 // Global variables
 var cookieTag = ' cookies';
+var hoursOfOperation = ['6am', '7am', '8am', '9am', '10am', '11am', '12pm', '1pm', '2pm','3pm', '4pm', '5pm', '6pm', '7pm', '8pm'];
 
 function CookieStore(storeName, minCustPerHr, maxCustPerHr, avgCookiesPerSale) {
   // Pass in store name, min/max hourly customers, average cookies per customer, and store hours, then assign them to the object properties
@@ -61,60 +62,85 @@ CookieStore.prototype.calcCookiesAtHour = function() {
   return cookiesAtHourArray;
 };
 
+function renderHeaderRow() {
+  //<!-- create your container then every unique cell -->
+  var storeHeaderRow = document.getElementById('table_header'); // Locate
+  var tableHeaderRow = document.createElement('tr'); // Create
+  var blankTableHeader = document.createElement('th'); // Create
+  var totalTableHeader = document.createElement('th'); // Create
+  var hourlyTableHeader;
+
+  blankTableHeader.textContent = ''; // Update content
+  tableHeaderRow.appendChild(blankTableHeader); // Append blank header at first column in the row
+
+  for (var i = 0; i < hoursOfOperation.length; i++) {
+    hourlyTableHeader = document.createElement('th'); // Create
+    hourlyTableHeader.textContent = hoursOfOperation[i]; // Update content
+    tableHeaderRow.appendChild(hourlyTableHeader);  // Append after the blank header
+  }
+
+  totalTableHeader.textContent = 'Daily Location Total'; // Update content
+  tableHeaderRow.appendChild(totalTableHeader); // Append after hourly table headers
+  storeHeaderRow.appendChild(tableHeaderRow); // Append the header row to the table
+};
+renderHeaderRow();
+
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // EVERYTHING ABOVE THIS LINE IS GOOD--EVERYTHING ABOVE THIS LINE IS GOOD---EVERYTHING ABOVE THIS LINE IS GOOD----
 
-// Display the values of each array as a table in the browser
-CookieStore.prototype.displayToHtml = function() {
-  var storeTable = document.getElementById('store_table');
-  var tableRow = document.createElement('tr');
-  var nameTableHeader = document.createElement('th');
-  var totalTableData = document.createElement('td');
-  var hourlyTableData;
+// Create cookie stores here which will render rows for the table
 
-  nameTableHeader.textContent = this.name;
-  tableRow.appendChild(nameTableHeader);
-
-  for (var i = 0; i < this.hours.length; i++) {
-    hourlyTableData = document.createElement('td');
-    hourlyTableData.textContent = 5; // use different data here in lab
-    tableRow.appendChild(hourlyTableData);
-  }
-
-  totalTableData.textCon = 15; // use instead calc total from other methods
-  tableRow.appendChild(totalTableData);
-
-  storeTable.appendChild(tableRow);
-};
-
-
-function () {
-  // Locate the node
-  var contentArea = document.getElementById('first_and_pike_hours_list');
-
-  // Create elements on the node
-  var p = document.createElement('p');
-  var ul = document.createElement('ul');
-  var li;
-
-  p.textContent = '1st and Pike'; // Set the p element
-  // Loop through the openHours (inclusive) to set each li element with an element from the array from cookiesAtHour()
-  // The <= allows an index for the total cookies
-  for (var i = 0; i <= openHours.length; i++) {
-    li = document.createElement('li');
-
-    li.textContent = this.cookiesAtHour()[i];
-    ul.appendChild(li);
-  }
-  p.appendChild(ul);
-  contentArea.appendChild(p);
-}
-};
-
-var pike = new CookieStore('Pike', 5, 10, 2);
-pike.calcCustPerHr();
-pike.calcCookiesPerHr();
-pike.calcCookiesAtHour();
+// // Display the values of each array as a table in the browser
+// CookieStore.prototype.displayToHtml = function() {
+//   var storeTable = document.getElementById('table_area');
+//   var tableRow = document.createElement('tr');
+//   var nameTableHeader = document.createElement('th');
+//   var totalTableData = document.createElement('td');
+//   var hourlyTableData;
+//
+//   nameTableHeader.textContent = this.name;
+//   tableRow.appendChild(nameTableHeader);
+//
+//   for (var i = 0; i < this.hours.length; i++) {
+//     hourlyTableData = document.createElement('td');
+//     hourlyTableData.textContent = 5; // use different data here in lab
+//     tableRow.appendChild(hourlyTableData);
+//   }
+//
+//   totalTableData.textCon = 15; // use instead calc total from other methods
+//   tableRow.appendChild(totalTableData);
+//
+//   storeTable.appendChild(tableRow);
+// };
+//
+//
+// function () {
+//   // Locate the node
+//   var contentArea = document.getElementById('first_and_pike_hours_list');
+//
+//   // Create elements on the node
+//   var p = document.createElement('p');
+//   var ul = document.createElement('ul');
+//   var li;
+//
+//   p.textContent = '1st and Pike'; // Set the p element
+//   // Loop through the openHours (inclusive) to set each li element with an element from the array from cookiesAtHour()
+//   // The <= allows an index for the total cookies
+//   for (var i = 0; i <= openHours.length; i++) {
+//     li = document.createElement('li');
+//
+//     li.textContent = this.cookiesAtHour()[i];
+//     ul.appendChild(li);
+//   }
+//   p.appendChild(ul);
+//   contentArea.appendChild(p);
+// }
+// };
+//
+// var pike = new CookieStore('Pike', 5, 10, 2);
+// pike.calcCustPerHr();
+// pike.calcCookiesPerHr();
+// pike.calcCookiesAtHour();
 
 
 // // Calculate daily sales projections on sales.html
