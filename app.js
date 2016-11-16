@@ -91,6 +91,27 @@ function renderHeaderRow() {
   storeHeaderRow.appendChild(tableHeaderRow); // Append the header row to the table
 };
 
+// Use a stand alone function to render the table footer
+function renderFooterRow() {
+  var storeFooterRow = document.getElementById('table_footer'); // Locate
+  var tableFooterRow = document.createElement('tr'); // Create
+  var labelTableFooter = document.createElement('th'); // Create
+  var totalTableFooter = document.createElement('th'); // Create
+  var hourlyTotals;
+
+  labelTableFooter.textContent = 'Totals'; // Update content
+  tableFooterRow.appendChild(labelTableFooter); // Append footer label at first column in the row
+
+  for (var i = 0; i < hoursOfOperation.length; i++) {
+    hourlyTotals = document.createElement('th'); // Create
+    hourlyTotals.textContent = 'calculate hourly totals'; // Update content
+    tableFooterRow.appendChild(hourlyTotals);  // Append after the footer label
+  }
+
+  totalTableFooter.textContent = 'Calculate daily total'; // Update content
+  tableFooterRow.appendChild(totalTableFooter); // Append after hourly table headers
+  storeFooterRow.appendChild(tableFooterRow); // Append the header row to the table
+};
 
 
 
@@ -116,6 +137,8 @@ capitolHill.renderTableRow();
 var alki = new CookieStore('Alki', 2, 16, 4.6);
 alki.calcCookiesPerHr();
 alki.renderTableRow();
+// Make the table footer row
+renderFooterRow();
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // EVERYTHING ABOVE THIS LINE IS GOOD--EVERYTHING ABOVE THIS LINE IS GOOD---EVERYTHING ABOVE THIS LINE IS GOOD----
