@@ -1,10 +1,87 @@
+'use strict';
+
+// WORK HERE=== WORK HERE=== WORK HERE=== WORK HERE=== WORK HERE=== WORK HERE=== WORK HERE=== WORK HERE=== WORK HERE=== WORK HERE===
+// Get the element
+var addStoreForm = document.getElementById('add_store_form');
+var COOKIE_STORES_ARRAY = [];
+
+// Add the listener
+addStoreForm.addEventListener('submit', handleSubmit);
+
+// Create the handler
+function handleSubmit(event) {
+  event.preventDefault();
+
+  // Take in input
+  var textBox = document.getElementById('form_text');//create a var to show where the submitted stuff will go
+  var storeName = event.target.store_name.value;
+  var minCust = event.target.min_cust.value;
+  var maxCust = event.target.max_cust.value;
+  var avgCookiesPerSale = event.target.avg_cookies_per_sale.value;
+
+  // Handle input
+  textBox.textContent = 'name: ' + storeName + ', min: ' + minCust + ', max: ' + maxCust + ', avgC/S: ' + avgCookiesPerSale;
+  var addedStore = new CookieStore(storeName, minCust, maxCust, avgCookiesPerSale);
+  COOKIE_STORES_ARRAY.push(addedStore);
+
+  // Reset the fields
+  event.target.store_name.value = '';
+  event.target.min_cust.value = '';
+  event.target.max_cust.value = '';
+  event.target.avg_cookies_per_sale.value = '';
+
+  renderTest()
+}
+// ^^^^^^^ WORK HERE=== WORK HERE=== WORK HERE=== WORK HERE=== WORK HERE=== WORK HERE=== WORK HERE=== WORK HERE=== WORK HERE=== WORK HERE===
+
+function renderTest() {
+  var cookieStoreTable = document.getElementById('table_body');
+  var tableRow = document.createElement('tr');
+  var storeNameTableHeader = document.createElement('th');
+  var storeTotalTableData = document.createElement('td');
+  var hourlyTableData;
+
+  // var chatSection = document.getElementById('chat_messages'); //locate table body
+  // var messageParagraph;
+  // var author;
+  // var message;
+
+  storeNameTableHeader.textContent = this.storeName; // Update content
+  tableRow.appendChild(storeNameTableHeader); // Append to the table row
+
+  for (var i = 0; i < this.cookiesPerHrObjectArray.length; i++) {
+    hourlyTableData = document.createElement('td'); // Create
+    hourlyTableData.textContent = this.cookiesPerHrObjectArray[i]; // Update content
+    tableRow.appendChild(hourlyTableData); // Append to the table row
+  }
+
+  storeTotalTableData.textContent = this.cookiesPerHrObjectArray[this.cookiesPerHrObjectArray.length]; // Update content
+  tableRow.appendChild(storeTotalTableData); // Append to the table row
+
+  cookieStoreTable.appendChild(tableRow); // Append the row of the object to the table
+  // chatSection.textContent = '';
+  //
+  // // Loop through the COOKIE_STORES_ARRAY to create a table row for each store object up to COOKIE_STORES_ARRAY.length
+  // // for each row add the th for store name, and td for cookie sales, and another td for daily cookie sales
+  // for (var i = 0; i < messages.length; i++) {
+  //   messageParagraph = document.createElement('p'); // create a table row
+  //
+  //   message = messages[i].message;
+  //   author = messages[i].author;
+  //
+  //   messageParagraph.textContent = author + ': ' + message; // Update content
+  //
+  //   chatSection.appendChild(messageParagraph); // Put it somewhere
+  // }
+}
+
 /*
 Author: Kevin Wong
 Date: 11/15/16
 Description: cookie stand lab day 2
 */
 
-'use strict';
+//'use strict';
 
 // Global variables
 var OPEN_HOURS = ['6am', '7am', '8am', '9am', '10am', '11am', '12pm', '1pm', '2pm','3pm', '4pm', '5pm', '6pm', '7pm', '8pm'];
@@ -113,30 +190,30 @@ function renderFooterRow() {
 
 
 
-// EXECUTE CODE---EXECUTE CODE---EXECUTE CODE---EXECUTE CODE---EXECUTE CODE---EXECUTE CODE---EXECUTE CODE---EXECUTE CODE---EXECUTE CODE---
-// EXECUTE CODE---EXECUTE CODE---EXECUTE CODE---EXECUTE CODE---EXECUTE CODE---EXECUTE CODE---EXECUTE CODE---EXECUTE CODE---EXECUTE CODE---
-
-// Make the table on html
-// Make the table header row
-renderHeaderRow();
-// Add the table body rows
-var pike = new CookieStore('Pike', 23, 65, 6.3); // Create the cookie store
-pike.calcCookiesPerHr(); // Call this to populate the array that will be used to render the table row
-pike.renderTableRow(); // Make the row
-var seaTac = new CookieStore('SeaTac Airport', 3, 24, 1.2);
-seaTac.calcCookiesPerHr(); // the calcCookiesPerHr function can be in the definition of the renderTableRow function so you only call renderTableRow()
-seaTac.renderTableRow();
-var seattleCenter = new CookieStore('Seattle Center', 11, 38, 3.7);
-seattleCenter.calcCookiesPerHr();
-seattleCenter.renderTableRow();
-var capitolHill = new CookieStore('Capitol Hill', 20, 38, 2.3);
-capitolHill.calcCookiesPerHr();
-capitolHill.renderTableRow();
-var alki = new CookieStore('Alki', 2, 16, 4.6);
-alki.calcCookiesPerHr();
-alki.renderTableRow();
-// Make the table footer row
-renderFooterRow();
-
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-// EVERYTHING ABOVE THIS LINE IS GOOD--EVERYTHING ABOVE THIS LINE IS GOOD---EVERYTHING ABOVE THIS LINE IS GOOD----
+// // EXECUTE CODE---EXECUTE CODE---EXECUTE CODE---EXECUTE CODE---EXECUTE CODE---EXECUTE CODE---EXECUTE CODE---EXECUTE CODE---EXECUTE CODE---
+// // EXECUTE CODE---EXECUTE CODE---EXECUTE CODE---EXECUTE CODE---EXECUTE CODE---EXECUTE CODE---EXECUTE CODE---EXECUTE CODE---EXECUTE CODE---
+//
+// // Make the table on html
+// // Make the table header row
+// renderHeaderRow();
+// // Add the table body rows
+// var pike = new CookieStore('Pike', 23, 65, 6.3); // Create the cookie store
+// pike.calcCookiesPerHr(); // Call this to populate the array that will be used to render the table row
+// pike.renderTableRow(); // Make the row
+// var seaTac = new CookieStore('SeaTac Airport', 3, 24, 1.2);
+// seaTac.calcCookiesPerHr(); // the calcCookiesPerHr function can be in the definition of the renderTableRow function so you only call renderTableRow()
+// seaTac.renderTableRow();
+// var seattleCenter = new CookieStore('Seattle Center', 11, 38, 3.7);
+// seattleCenter.calcCookiesPerHr();
+// seattleCenter.renderTableRow();
+// var capitolHill = new CookieStore('Capitol Hill', 20, 38, 2.3);
+// capitolHill.calcCookiesPerHr();
+// capitolHill.renderTableRow();
+// var alki = new CookieStore('Alki', 2, 16, 4.6);
+// alki.calcCookiesPerHr();
+// alki.renderTableRow();
+// // Make the table footer row
+// renderFooterRow();
+//
+// ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// // EVERYTHING ABOVE THIS LINE IS GOOD--EVERYTHING ABOVE THIS LINE IS GOOD---EVERYTHING ABOVE THIS LINE IS GOOD----
