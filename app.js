@@ -33,37 +33,66 @@ CookieStore.prototype.calcCustPerHr = function() {
 CookieStore.prototype.calcCookiesPerHr = function() {
   // Create a cookies per hour array to populate
   var cookiesPerHrArray = [];
+  var totalCookies = 0;
   // Loop through the array to assign a value for cookies per hour for each hour
   for (var i = 0; i < this.openHours.length; i++) {
     cookiesPerHrArray[i] = Math.round(this.avgCookiesPerSale * this.calcCustPerHr());
     this.cookiesPerHrObjectArray[i] = cookiesPerHrArray[i]; // Populates array as a value for a property
+    totalCookies += this.cookiesPerHrObjectArray[i]; // Add the cookies from that hour to the total daily cookies
   }
+
+  // Push the total to the end of the array with cookies per hour
+  this.cookiesPerHrObjectArray.push(totalCookies);
   // Return the array
   return cookiesPerHrArray;
 };
 
-// Store the results for each location in a separate array... perhaps as a property of the object representing that location
-CookieStore.prototype.calcCookiesAtHour = function() {
-  var cookiesAtHourArray = []; // Create a cookies at a given hour array to populate
-  var totalCookies = 0; // Create a variable to keep track of total cookies
+// // Store the results for each location in a separate array... perhaps as a property of the object representing that location
+// CookieStore.prototype.calcCookiesAtHour = function() {
+//   var cookiesAtHourArray = []; // Create a cookies at a given hour array to populate
+//   var totalCookies = 0; // Create a variable to keep track of total cookies
+//
+//   // Loop through the array to assign the open hour and cookies for that hour at each index
+//   for (var i = 0; i < this.openHours.length; i++) {
+//     cookiesAtHourArray[i] = this.openHours[i] + ': ' + this.cookiesPerHrObjectArray[i] + cookieTag;
+//     totalCookies += this.cookiesPerHrObjectArray[i]; // Add the cookies from that hour to the total daily cookies
+//     console.log('totalCookies: ', totalCookies);
+//   }
+//
+//   // Store the total cookies at the last index of the cookiesAtHourArary
+//   cookiesAtHourArray[this.openHours.length] = 'Total: ' + totalCookies + cookieTag;
+//
+//   // Return the array
+//   console.log('cookiesAtHourArray: ', cookiesAtHourArray);
+//   return cookiesAtHourArray;
+// };
 
-  // Loop through the array to assign the open hour and cookies for that hour at each index
-  for (var i = 0; i < this.openHours.length; i++) {
-    cookiesAtHourArray[i] = this.openHours[i] + ': ' + this.cookiesPerHrObjectArray[i] + cookieTag;
-    totalCookies += this.cookiesPerHrObjectArray[i]; // Add the cookies from that hour to the total daily cookies
-    console.log('totalCookies: ', totalCookies);
+// WORK AREA===WORK AREA===WORK AREA===WORK AREA===WORK AREA===WORK AREA===WORK AREA===WORK AREA===
+CookieStore.prototype.renderTableRow = function() {
+  var cookieStoreTable = document.getElementById('table_body');
+  var tableRow = document.createElement('tr');
+  var storeNameTableHeader = document.createElement('th');
+  var storeTotalTableData = document.createElement('td');
+  var hourlyTableData;
+
+  storeNameTableHeader.textContent = this.storeName;
+  tableRow.appendChild(storeNameTableHeader);
+
+  for (var i = 0; i < this.cookiesPerHrObjectArray.length; i++) {
+    hourlyTableData = document.createElement('td');
+    hourlyTableData.textContent = this.cookiesPerHrObjectArray[i];
+    tableRow.appendChild(hourlyTableData);
   }
 
-  // Store the total cookies at the last index of the cookiesAtHourArary
-  cookiesAtHourArray[this.openHours.length] = 'Total: ' + totalCookies + cookieTag;
+  storeTotalTableData.textCon = this.cookiesPerHrObjectArray[this.cookiesPerHrObjectArray.length]; // use instead calc total from other methods
+  tableRow.appendChild(storeTotalTableData);
 
-  // Return the array
-  console.log('cookiesAtHourArray: ', cookiesAtHourArray);
-  return cookiesAtHourArray;
+  cookieStoreTable.appendChild(tableRow);
 };
+//WORK AREA===WORK AREA===WORK AREA===WORK AREA===WORK AREA===WORK AREA===WORK AREA===WORK AREA===WORK AREA===WORK AREA===
 
+// Use a stand alone function to render the table header
 function renderHeaderRow() {
-  //<!-- create your container then every unique cell -->
   var storeHeaderRow = document.getElementById('table_header'); // Locate
   var tableHeaderRow = document.createElement('tr'); // Create
   var blankTableHeader = document.createElement('th'); // Create
@@ -83,69 +112,29 @@ function renderHeaderRow() {
   tableHeaderRow.appendChild(totalTableHeader); // Append after hourly table headers
   storeHeaderRow.appendChild(tableHeaderRow); // Append the header row to the table
 };
+
+// Make the table on html
+// Make the table header row
 renderHeaderRow();
+// Add the table body rows
+var pike = new CookieStore('Pike', 23, 65, 6.3); // Create the cookie store
+pike.calcCookiesPerHr(); // Call this to populate the array that will be used to render the table row
+pike.renderTableRow(); // Make the row
+var seaTac = new CookieStore('SeaTac Airport', 3, 24, 1.2);
+seaTac.calcCookiesPerHr();
+seaTac.renderTableRow();
+var seattleCenter = new CookieStore('Seattle Center', 11, 38, 3.7);
+seattleCenter.calcCookiesPerHr();
+seattleCenter.renderTableRow();
+var capitolHill = new CookieStore('Capitol Hill', 20, 38, 2.3);
+capitolHill.calcCookiesPerHr();
+capitolHill.renderTableRow();
+var alki = new CookieStore('Alki', 2, 16, 4.6);
+alki.calcCookiesPerHr();
+alki.renderTableRow();
+
+
+
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // EVERYTHING ABOVE THIS LINE IS GOOD--EVERYTHING ABOVE THIS LINE IS GOOD---EVERYTHING ABOVE THIS LINE IS GOOD----
-
-// Create cookie stores here which will render rows for the table
-
-// // Display the values of each array as a table in the browser
-// CookieStore.prototype.displayToHtml = function() {
-//   var storeTable = document.getElementById('table_area');
-//   var tableRow = document.createElement('tr');
-//   var nameTableHeader = document.createElement('th');
-//   var totalTableData = document.createElement('td');
-//   var hourlyTableData;
-//
-//   nameTableHeader.textContent = this.name;
-//   tableRow.appendChild(nameTableHeader);
-//
-//   for (var i = 0; i < this.hours.length; i++) {
-//     hourlyTableData = document.createElement('td');
-//     hourlyTableData.textContent = 5; // use different data here in lab
-//     tableRow.appendChild(hourlyTableData);
-//   }
-//
-//   totalTableData.textCon = 15; // use instead calc total from other methods
-//   tableRow.appendChild(totalTableData);
-//
-//   storeTable.appendChild(tableRow);
-// };
-//
-//
-// function () {
-//   // Locate the node
-//   var contentArea = document.getElementById('first_and_pike_hours_list');
-//
-//   // Create elements on the node
-//   var p = document.createElement('p');
-//   var ul = document.createElement('ul');
-//   var li;
-//
-//   p.textContent = '1st and Pike'; // Set the p element
-//   // Loop through the openHours (inclusive) to set each li element with an element from the array from cookiesAtHour()
-//   // The <= allows an index for the total cookies
-//   for (var i = 0; i <= openHours.length; i++) {
-//     li = document.createElement('li');
-//
-//     li.textContent = this.cookiesAtHour()[i];
-//     ul.appendChild(li);
-//   }
-//   p.appendChild(ul);
-//   contentArea.appendChild(p);
-// }
-// };
-//
-// var pike = new CookieStore('Pike', 5, 10, 2);
-// pike.calcCustPerHr();
-// pike.calcCookiesPerHr();
-// pike.calcCookiesAtHour();
-
-
-// // Calculate daily sales projections on sales.html
-// FirstAndPike.firstAndPikeHours();
-// SeaTacAirport.seaTacAirportHours();
-// SeattleCenter.seattleCenterHours();
-// CapitolHill.capitolHillHours();
-// Alki.alkiHours();
