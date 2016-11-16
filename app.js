@@ -7,7 +7,7 @@ Description: cookie stand lab day 2
 'use strict';
 
 // Global variables
-var hoursOfOperation = ['6am', '7am', '8am', '9am', '10am', '11am', '12pm', '1pm', '2pm','3pm', '4pm', '5pm', '6pm', '7pm', '8pm'];
+var OPEN_HOURS = ['6am', '7am', '8am', '9am', '10am', '11am', '12pm', '1pm', '2pm','3pm', '4pm', '5pm', '6pm', '7pm', '8pm'];
 
 function CookieStore(storeName, minCustPerHr, maxCustPerHr, avgCookiesPerSale) {
   // Pass in store name, min/max hourly customers, average cookies per customer, and store hours, then assign them to the object properties
@@ -33,7 +33,7 @@ CookieStore.prototype.calcCookiesPerHr = function() {
   var cookiesPerHrArray = [];
   var totalCookies = 0;
   // Loop through the array to assign a value for cookies per hour for each hour
-  for (var i = 0; i < hoursOfOperation.length; i++) {
+  for (var i = 0; i < OPEN_HOURS.length; i++) {
     cookiesPerHrArray[i] = Math.round(this.avgCookiesPerSale * this.calcCustPerHr());
     this.cookiesPerHrObjectArray[i] = cookiesPerHrArray[i]; // Populates array as a value for a property
     totalCookies += this.cookiesPerHrObjectArray[i]; // Add the cookies from that hour to the total daily cookies
@@ -45,7 +45,6 @@ CookieStore.prototype.calcCookiesPerHr = function() {
   return cookiesPerHrArray;
 };
 
-// WORK AREA===WORK AREA===WORK AREA===WORK AREA===WORK AREA===WORK AREA===WORK AREA===WORK AREA===
 CookieStore.prototype.renderTableRow = function() {
   var cookieStoreTable = document.getElementById('table_body'); // Locate
   var tableRow = document.createElement('tr'); // Create
@@ -79,9 +78,9 @@ function renderHeaderRow() {
   blankTableHeader.textContent = ''; // Update content
   tableHeaderRow.appendChild(blankTableHeader); // Append blank header at first column in the row
 
-  for (var i = 0; i < hoursOfOperation.length; i++) {
+  for (var i = 0; i < OPEN_HOURS.length; i++) {
     hourlyTableHeader = document.createElement('th'); // Create
-    hourlyTableHeader.textContent = hoursOfOperation[i]; // Update content
+    hourlyTableHeader.textContent = OPEN_HOURS[i]; // Update content
     tableHeaderRow.appendChild(hourlyTableHeader);  // Append after the blank header
   }
 
@@ -101,7 +100,7 @@ function renderFooterRow() {
   labelTableFooter.textContent = 'Totals'; // Update content
   tableFooterRow.appendChild(labelTableFooter); // Append footer label at first column in the row
 
-  for (var i = 0; i < hoursOfOperation.length; i++) {
+  for (var i = 0; i < OPEN_HOURS.length; i++) {
     hourlyTotals = document.createElement('td'); // Create
     hourlyTotals.textContent = 'calculate hourly totals'; // Update content
     tableFooterRow.appendChild(hourlyTotals);  // Append after the footer label
@@ -125,7 +124,7 @@ var pike = new CookieStore('Pike', 23, 65, 6.3); // Create the cookie store
 pike.calcCookiesPerHr(); // Call this to populate the array that will be used to render the table row
 pike.renderTableRow(); // Make the row
 var seaTac = new CookieStore('SeaTac Airport', 3, 24, 1.2);
-seaTac.calcCookiesPerHr();
+seaTac.calcCookiesPerHr(); // the calcCookiesPerHr function can be in the definition of the renderTableRow function so you only call renderTableRow()
 seaTac.renderTableRow();
 var seattleCenter = new CookieStore('Seattle Center', 11, 38, 3.7);
 seattleCenter.calcCookiesPerHr();
