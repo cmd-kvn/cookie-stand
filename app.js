@@ -16,7 +16,6 @@ function CookieStore(storeName, minCustPerHr, maxCustPerHr, avgCookiesPerSale) {
   this.maxCustPerHr = maxCustPerHr;
   this.avgCookiesPerSale = avgCookiesPerSale;
   this.cookiesPerHrObjectArray = [];  // to be populated by calcCookiesPerHr()
-  this.openHours = ['6am', '7am', '8am', '9am', '10am', '11am', '12pm', '1pm', '2pm','3pm', '4pm', '5pm', '6pm', '7pm', '8pm']; // this can be moved to the global variable
 };
 
 // Use a method of tha tobject to generate a random number of customers per hour
@@ -34,7 +33,7 @@ CookieStore.prototype.calcCookiesPerHr = function() {
   var cookiesPerHrArray = [];
   var totalCookies = 0;
   // Loop through the array to assign a value for cookies per hour for each hour
-  for (var i = 0; i < this.openHours.length; i++) {
+  for (var i = 0; i < hoursOfOperation.length; i++) {
     cookiesPerHrArray[i] = Math.round(this.avgCookiesPerSale * this.calcCustPerHr());
     this.cookiesPerHrObjectArray[i] = cookiesPerHrArray[i]; // Populates array as a value for a property
     totalCookies += this.cookiesPerHrObjectArray[i]; // Add the cookies from that hour to the total daily cookies
@@ -96,14 +95,14 @@ function renderFooterRow() {
   var storeFooterRow = document.getElementById('table_footer'); // Locate
   var tableFooterRow = document.createElement('tr'); // Create
   var labelTableFooter = document.createElement('th'); // Create
-  var totalTableFooter = document.createElement('th'); // Create
+  var totalTableFooter = document.createElement('td'); // Create
   var hourlyTotals;
 
   labelTableFooter.textContent = 'Totals'; // Update content
   tableFooterRow.appendChild(labelTableFooter); // Append footer label at first column in the row
 
   for (var i = 0; i < hoursOfOperation.length; i++) {
-    hourlyTotals = document.createElement('th'); // Create
+    hourlyTotals = document.createElement('td'); // Create
     hourlyTotals.textContent = 'calculate hourly totals'; // Update content
     tableFooterRow.appendChild(hourlyTotals);  // Append after the footer label
   }
