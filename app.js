@@ -1,14 +1,48 @@
 /*
 Author: Kevin Wong
-Date: 11/15/16
-Description: cookie stand lab day 2
+Date: 11/16/16
+Description: cookie stand lab day 3
 */
 
 'use strict';
 
-// Global variables
+// GLOBAL VARIABLES
 var OPEN_HOURS = ['6am', '7am', '8am', '9am', '10am', '11am', '12pm', '1pm', '2pm','3pm', '4pm', '5pm', '6pm', '7pm', '8pm'];
+var COOKIE_STORES_ARRAY = [];
 
+function makeCookieStoreForm() {
+  // Get the element
+  var addStoreForm = document.getElementById('add_store_form');
+
+  // Add the listener
+  addStoreForm.addEventListener('submit', handleSubmit);
+
+  // Create the handler
+  // This function will take in the input from the user for a new cookie store, create a new cookie store object, and add it as a row to the table
+  function handleSubmit(event) {
+    event.preventDefault();
+
+    // Take in input
+    var storeName = event.target.store_name.value;
+    var minCust = event.target.min_cust.value;
+    var maxCust = event.target.max_cust.value;
+    var avgCookiesPerSale = event.target.avg_cookies_per_sale.value;
+
+    // Handle input
+    var addedStore = new CookieStore(storeName, minCust, maxCust, avgCookiesPerSale); // add new instance of a cookie store
+    COOKIE_STORES_ARRAY.push(addedStore); // push the new store to the array
+
+    // Reset the fields
+    event.target.store_name.value = '';
+    event.target.min_cust.value = '';
+    event.target.max_cust.value = '';
+    event.target.avg_cookies_per_sale.value = '';
+
+    addedStore.renderTableRow(); // generate the row on the table
+  }
+}
+
+// Cookie store constructor
 function CookieStore(storeName, minCustPerHr, maxCustPerHr, avgCookiesPerSale) {
   // Pass in store name, min/max hourly customers, average cookies per customer, and store hours, then assign them to the object properties
   this.storeName = storeName;
@@ -16,33 +50,26 @@ function CookieStore(storeName, minCustPerHr, maxCustPerHr, avgCookiesPerSale) {
   this.maxCustPerHr = maxCustPerHr;
   this.avgCookiesPerSale = avgCookiesPerSale;
   this.cookiesPerHrObjectArray = [];  // to be populated by calcCookiesPerHr()
-};
+}
 
-// Use a method of tha tobject to generate a random number of customers per hour
+// Use a method of that object to generate a random number of customers per hour
 CookieStore.prototype.calcCustPerHr = function() {
   // Returns a random integer between min (included) and max (included)
   // Borrowed from https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/random
-  var returnCustPerHr = Math.floor(Math.random() * (this.maxCustPerHr - this.minCustPerHr + 1) + this.minCustPerHr);
-  console.log('returnCustPerHr: ', returnCustPerHr);
-  return returnCustPerHr;
+  return Math.floor(Math.random() * (this.maxCustPerHr - this.minCustPerHr + 1) + this.minCustPerHr);
 };
 
 // Calculate and store the simulated amounts of cookies purchased for each hour at each location using average cookies purchased and the random number of customers generated
 CookieStore.prototype.calcCookiesPerHr = function() {
-  // Create a cookies per hour array to populate
-  var cookiesPerHrArray = [];
   var totalCookies = 0;
   // Loop through the array to assign a value for cookies per hour for each hour
   for (var i = 0; i < OPEN_HOURS.length; i++) {
-    cookiesPerHrArray[i] = Math.round(this.avgCookiesPerSale * this.calcCustPerHr());
-    this.cookiesPerHrObjectArray[i] = cookiesPerHrArray[i]; // Populates array as a value for a property
+    this.cookiesPerHrObjectArray[i] = Math.round(this.avgCookiesPerSale * this.calcCustPerHr()); // Populates array as a value for a property
     totalCookies += this.cookiesPerHrObjectArray[i]; // Add the cookies from that hour to the total daily cookies
   }
 
-  // Push the total to the end of the array with cookies per hour
+  // Push the total to the end of the cookiesPerHrObjectArray array
   this.cookiesPerHrObjectArray.push(totalCookies);
-  // Return the array
-  return cookiesPerHrArray;
 };
 
 CookieStore.prototype.renderTableRow = function() {
@@ -51,6 +78,8 @@ CookieStore.prototype.renderTableRow = function() {
   var storeNameTableHeader = document.createElement('th'); // Create
   var storeTotalTableData = document.createElement('td'); // Create
   var hourlyTableData;
+
+  this.calcCookiesPerHr(); // Prepare the cookiesPerHrObjectArray via calcCookiesPerHr() to fill in the table data
 
   storeNameTableHeader.textContent = this.storeName; // Update content
   tableRow.appendChild(storeNameTableHeader); // Append to the table row
@@ -87,7 +116,7 @@ function renderHeaderRow() {
   totalTableHeader.textContent = 'Daily Location Total'; // Update content
   tableHeaderRow.appendChild(totalTableHeader); // Append after hourly table headers
   storeHeaderRow.appendChild(tableHeaderRow); // Append the header row to the table
-};
+}
 
 // Use a stand alone function to render the table footer
 function renderFooterRow() {
@@ -109,34 +138,29 @@ function renderFooterRow() {
   totalTableFooter.textContent = 'Calculate daily total'; // Update content
   tableFooterRow.appendChild(totalTableFooter); // Append after hourly table headers
   storeFooterRow.appendChild(tableFooterRow); // Append the header row to the table
-};
+}
 
+function makeCookieStoreTable() {
+  // Make the table header row
+  renderHeaderRow();
 
+  // Add the table body rows
+  // Push all the cookie stores to COOKIE_STORES_ARRAY
+  COOKIE_STORES_ARRAY.push(new CookieStore('Pike', 23, 65, 6.3), new CookieStore('SeaTac Airport', 3, 24, 1.2), new CookieStore('Seattle Center', 11, 38, 3.7), new CookieStore('Capitol Hill', 20, 38, 2.3), new CookieStore('Alki', 2, 16, 4.6));
+
+  // write a for loop to call the .renderTableRow function for each object[i]
+  for (var i = 0; i < COOKIE_STORES_ARRAY.length; i++) {
+    COOKIE_STORES_ARRAY[i].renderTableRow();
+  }
+
+  // Make the table footer row
+  renderFooterRow();
+}
 
 // EXECUTE CODE---EXECUTE CODE---EXECUTE CODE---EXECUTE CODE---EXECUTE CODE---EXECUTE CODE---EXECUTE CODE---EXECUTE CODE---EXECUTE CODE---
 // EXECUTE CODE---EXECUTE CODE---EXECUTE CODE---EXECUTE CODE---EXECUTE CODE---EXECUTE CODE---EXECUTE CODE---EXECUTE CODE---EXECUTE CODE---
 
-// Make the table on html
-// Make the table header row
-renderHeaderRow();
-// Add the table body rows
-var pike = new CookieStore('Pike', 23, 65, 6.3); // Create the cookie store
-pike.calcCookiesPerHr(); // Call this to populate the array that will be used to render the table row
-pike.renderTableRow(); // Make the row
-var seaTac = new CookieStore('SeaTac Airport', 3, 24, 1.2);
-seaTac.calcCookiesPerHr(); // the calcCookiesPerHr function can be in the definition of the renderTableRow function so you only call renderTableRow()
-seaTac.renderTableRow();
-var seattleCenter = new CookieStore('Seattle Center', 11, 38, 3.7);
-seattleCenter.calcCookiesPerHr();
-seattleCenter.renderTableRow();
-var capitolHill = new CookieStore('Capitol Hill', 20, 38, 2.3);
-capitolHill.calcCookiesPerHr();
-capitolHill.renderTableRow();
-var alki = new CookieStore('Alki', 2, 16, 4.6);
-alki.calcCookiesPerHr();
-alki.renderTableRow();
-// Make the table footer row
-renderFooterRow();
-
+makeCookieStoreForm();
+makeCookieStoreTable();
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // EVERYTHING ABOVE THIS LINE IS GOOD--EVERYTHING ABOVE THIS LINE IS GOOD---EVERYTHING ABOVE THIS LINE IS GOOD----
