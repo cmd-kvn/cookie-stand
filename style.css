@@ -1,0 +1,49 @@
+body {
+  background-image: url(salmon_square.jpg);
+  background-repeat: repeat;
+  background-color: #3987c9;
+  width: 852px;
+  font-family: IM Fell English, Georgia;
+  font-size: 1.5em;
+  font-style: none;
+}
+
+#hdr-logo {
+  font-family: Special Elite;
+  font-size: 26.5px;
+  text-align: center;
+  /*display: flex;
+  justify-content: center;
+  align-items: center;*/
+}
+
+#hdr-right {
+  display: inline;
+  /*float: right;*/
+}
+
+nav ul li {
+  font-family: Special Elite;
+  font-size: 1.1em;
+  display: inline;
+  list-style: none;
+}
+
+.main_photo_description {
+  position: relative;
+  margin-bottom: 200px;
+}
+
+main ul li {
+  width: 266px;
+  display: inline-block;
+  list-style: none;;
+}
+
+footer div p ul li {
+  list-style: none;
+}
+/*.info {
+  font-family: Arial;
+  font-size: 12px;
+}*/
