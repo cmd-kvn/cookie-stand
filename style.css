@@ -12,21 +12,40 @@ body {
   font-family: Special Elite;
   font-size: 26.5px;
   text-align: center;
+  margin-top: 0px;
   /*display: flex;
   justify-content: center;
   align-items: center;*/
 }
 
+#hdr-text {
+  margin-top: 5px;
+  margin-bottom: 20px;
+}
+
 #hdr-right {
   display: inline;
+  text-align: right;
   /*float: right;*/
+}
+
+nav {
+  width: 852px;
+  margin: 0 auto;
+}
+
+nav ul {
+  display: inline-block;
+  margin: 0;
 }
 
 nav ul li {
   font-family: Special Elite;
   font-size: 1.1em;
   display: inline;
+  margin: 20px 8px;
   list-style: none;
+  text-align: center;
 }
 
 .main_photo_description {
@@ -35,14 +54,26 @@ nav ul li {
 }
 
 main ul li {
-  width: 266px;
+  width: 246px;
   display: inline-block;
-  list-style: none;;
+  list-style: none;
+  margin: 10px;
 }
 
-footer div p ul li {
-  list-style: none;
+footer div .ftr-column .info {
+    float: left;
+    width: 180px;
+    margin:10px
 }
+
+.info {
+  font-size: 12px;
+  font-family: Arial;
+  /*text-align: right;*/
+}
+/*footer div p ul li {
+  list-style: none;
+}*/
 /*.info {
   font-family: Arial;
   font-size: 12px;
