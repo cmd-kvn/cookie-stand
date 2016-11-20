@@ -33,7 +33,11 @@ function makeCookieStoreForm() {
 
     // Handle input
     var addedStore = new CookieStore(storeName, minCust, maxCust, avgCookiesPerSale); // add new instance of a cookie store
+    addedStore.calcCookiesPerHr(); // make the store's cookiesPerHrObjectArray
     COOKIE_STORES_ARRAY.push(addedStore); // push the new store to the array
+
+//*LOOK***LOOK***LOOK***LOOK***LOOK***LOOK***LOOK***LOOK***LOOK***LOOK***LOOK***LOOK***LOOK***LOOK***LOOK***LOOK***
+// calc FOOTER_COOKIE_TOTAL_ARRAY here to update before makeCookieStoreTable()?
 
     // Reset the fields
     event.target.store_name.value = '';
@@ -41,6 +45,8 @@ function makeCookieStoreForm() {
     event.target.max_cust.value = '';
     event.target.avg_cookies_per_sale.value = '';
 
+//LOOK**********************************************************LOOK*****************************LOOK*******
+//makeCookieStoreTable(); to refresh table
     addedStore.renderTableRow(); // generate the row on the table
   }
 }
@@ -105,8 +111,8 @@ CookieStore.prototype.calcFooterCookieTotals = function() {
   var footerHourlyTotal = 0;
 
   // Loop through the open hours
-  for(var i = 0; i < this.cookiesPerHrObjectArray.length; i++) {
-    //footerHourlyTotal = 0; // Resent the hourly total
+  for(var i = 0; i < OPEN_HOURS.length; i++) {
+    //footerHourlyTotal = 0; // Reset the hourly total
     footerHourlyTotal = this.cookiesPerHrObjectArray[i];
     footerDailyTotal += footerHourlyTotal; // add the store's hourly total to the daily total
 
