@@ -1,4 +1,4 @@
-<!-- http://codepen.io/anon/pen/ENNMqa?editors=1100 for wireframe -->
+<!-- http://codepen.io/anon/pen/vyxGxz?editors=1100 -->
 <!DOCTYPE html>
 <html>
   <head>
@@ -10,14 +10,8 @@
 
   <body>
     <header>
-      <div id='hdr-logo'>
-        <img src="salmon.png" alt="salmon.png logo" />
-        <h1 id='hdr-text'>Pat's Northwest Salmon Cookies</h1>
-      </div>
-      <div id="hdr-right" class="info">
-        <p>Store Hours: Mon-Sun, 6am-8pm <br>
-          Customer Service 1-206-867-5309</p>
-      </div>
+       <img src="salmon.png" alt="salmon.png logo" />
+       <p id='hdr-text'>Pat's Northwest Salmon Cookies</p>
     </header>
 
     <nav>
@@ -31,24 +25,23 @@
 
     <main>
       <img src="family.jpg" alt="Family pic" />
-      <p class="main_photo_description">A family business. Sharing our creation with you.</p>
-      <ul>
-        <li>
-          <img src="cutter.jpeg" alt="cutter.jpeg" />
-          <h2>Come make cookies with us</h2>
-          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Beatae similique itaque magni alias quidem doloribus, soluta ullam iusto! Vel eum autem magni dignissimos et cupiditate aliquam impedit, veritatis vitae similique.</p>
-        </li>
-        <li>
-          <img src="fish.jpg" alt="fish.jpg" />
-          <h2>Find us in the community</h2>
-          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Optio iure eveniet, nam dolor hic, cumque adipisci eaque esse fugiat officiis porro in saepe sint commodi doloribus voluptas corporis delectus, ipsam.</p>
-        </li>
-        <li>
-          <img src="shirt.jpg" alt="Salmon shirt" />
-          <h2>Swag out in salmon gear</h2>
-          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Soluta molestiae et nostrum iure eligendi, impedit aperiam, odit ullam, nulla vitae voluptatem maiores nihil omnis sit similique, tempora ex nisi. Culpa.</p>
-        </li>
-      </ul>
+      <p id="main_photo_description">A family business. Sharing our creation with you.</p>
+      <div class="main_content">
+        <img src="cutter.jpeg" class="medium_pic" alt="cutter.jpeg" />
+        <h2>Come make salmon cookies with us</h2>
+        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Beatae similique itaque magni alias quidem doloribus, soluta ullam iusto! Vel eum autem magni dignissimos et cupiditate aliquam impedit, veritatis vitae similique. <br>
+      </div>
+      <div class="main_content">
+        <img src="fish.jpg" class="medium_pic" alt="fish.jpg" />
+        <h2>Find us in the community</h2>
+        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Optio iure eveniet, nam dolor hic, cumque adipisci eaque esse fugiat officiis porro in saepe sint commodi doloribus voluptas corporis delectus, ipsam. <br>
+      </div>
+      <div class="main_content">
+        <img src="shirt.jpg" class="medium_pic" alt="Salmon shirt" />
+        <h2>Swag out in salmon gear</h2>
+        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Soluta molestiae et nostrum iure eligendi, impedit aperiam, odit ullam, nulla vitae voluptatem maiores nihil omnis sit similique, tempora ex nisi. Culpa. <br>
+      </div>
+
       <section>Sign Up for Exclusive Offers
         <button>SIGN UP</button>
       </section>
@@ -56,44 +49,47 @@
 
     <aside>
       Congrats, you've won a free salmon cookie! Click to claim your prize.
-      <img src="frosted-cookie.jpg" alt="cookie" />
+      <img src="frosted-cookie.jpg" class="fixed_pic" alt="cookie" />
     </aside>
+
+    <div id="ad">
+      <img src="chinook.jpg" class="fixed_pic" alt="chinook pic" />
+      Made with 100% wild caught northwest salmon
+    </div>
 
     <script src="app.js"></script>
   </body>
 
   <footer>
-    <div class="ftr-column" class="info">
-      <p><strong>Contact info</strong> <br>
+    <div class="ftr-column">
+      <h4>Contact info</h4>
         Customer Service Hours: <br>
         Mon-Fri, 7:30am to 5:30pm PST <br><br>
         1-206-867-5309 <br>
         customerservice@patsnwsalmoncookies.com <br><br>
         255 Rain Sound Access Road <br>
         Seattle, WA 98101
-      </p>
     </div>
-    <div class="ftr-column" class="info">
-      <p><strong>Customer Service</strong>
+    <div class="ftr-column">
+      <h4>Customer Service</h4>
         <ul>
           <li>Shipping info</li>
           <li>FAQs</li>
           <li>Return policy</li>
           <li>Privacy policy</li>
         </ul>
-      </p>
     </div>
-    <div class="ftr-column" class="info">
-      <p><strong>Products</strong>
+    <div class="ftr-column">
+      <h4>Our Stores</h4>
         <ul>
-          <li>2016 Collection</li>
-          <li>Best Sellers</li>
-          <li>Unique Gifts</li>
-          <li>Gift Boxes</li>
-          <li>Gift Bags</li>
-          <li>Wedding and Party Favors</li>
+          <li>Pike Place</li>
+          <li>SeaTac Airport</li>
+          <li>Seattle Center</li>
+          <li>Capitol Hill</li>
+          <li>Alki</li>
         </ul>
-      </p>
+      <h4>Store Hours</h4>
+      Mon-Sat. 6am-8pm
     </div>
   </footer>
 </html>
