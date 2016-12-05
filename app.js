@@ -7,7 +7,9 @@ Description: cookie stand lab day 4
 'use strict';
 
 // GLOBAL VARIABLES
-var OPEN_HOURS = ['6am', '7am', '8am', '9am', '10am', '11am', '12pm', '1pm', '2pm','3pm', '4pm', '5pm', '6pm', '7pm', '8pm'];
+var OPEN_HOURS = ['6am', '7am', '8am', '9am', '10am',
+  '11am', '12pm', '1pm', '2pm','3pm',
+  '4pm', '5pm', '6pm', '7pm', '8pm'];
 var COOKIE_STORES_ARRAY = [];
 var FOOTER_COOKIE_TOTAL_ARRAY = [];
 var footerDailyTotal = 0;
@@ -33,21 +35,15 @@ function makeCookieStoreForm() {
 
     // Handle input
     var addedStore = new CookieStore(storeName, minCust, maxCust, avgCookiesPerSale); // add new instance of a cookie store
-    addedStore.calcCookiesPerHr(); // make the store's cookiesPerHrObjectArray
+    addedStore.renderTableRow(); // generate the row on the table after calculating calcCookiesPerHr() within
+    // addedStore.calcCookiesPerHr(); // make the store's cookiesPerHrObjectArray
     COOKIE_STORES_ARRAY.push(addedStore); // push the new store to the array
-
-//*LOOK***LOOK***LOOK***LOOK***LOOK***LOOK***LOOK***LOOK***LOOK***LOOK***LOOK***LOOK***LOOK***LOOK***LOOK***LOOK***
-// calc FOOTER_COOKIE_TOTAL_ARRAY here to update before makeCookieStoreTable()?
 
     // Reset the fields
     event.target.store_name.value = '';
     event.target.min_cust.value = '';
     event.target.max_cust.value = '';
     event.target.avg_cookies_per_sale.value = '';
-
-//LOOK**********************************************************LOOK*****************************LOOK*******
-//makeCookieStoreTable(); to refresh table
-    addedStore.renderTableRow(); // generate the row on the table
   }
 }
 
@@ -89,7 +85,6 @@ CookieStore.prototype.renderTableRow = function() {
   var hourlyTableData;
 
   this.calcCookiesPerHr(); // Prepare the cookiesPerHrObjectArray via calcCookiesPerHr() to fill in the table data
-  //this.calcFooterCookieTotals(); // TEST  TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST
 
   storeNameTableHeader.textContent = this.storeName; // Update content
   tableRow.appendChild(storeNameTableHeader); // Append to the table row
@@ -123,37 +118,10 @@ CookieStore.prototype.calcFooterCookieTotals = function() {
     } else {
       FOOTER_COOKIE_TOTAL_ARRAY[i] += footerHourlyTotal;
     }
-    // // Loop through each store to find the cookie total for that hour
-    // for(var j = 0; j < COOKIE_STORES_ARRAY.length; j++) {
-    //
-    // }
   }
   FOOTER_COOKIE_TOTAL_ARRAY.push(footerDailyTotal);
   console.log('footerDailyTotal: ', footerDailyTotal);
 };
-
-// CookieStore.prototype.calcFooterCookieTotals = function() {
-//   var footerHourlyTotal = 0;
-//
-//   // loop through the cookiesPerHrObjectArray
-//   for (var i = 0; i < this.cookiesPerHrObjectArray.length; i++) {
-//     footerHourlyTotal = this.cookiesPerHrObjectArray[i];
-//
-//     // Loop through the array of cookies stores
-//     for (var j = 0; j < COOKIE_STORES_ARRAY.length; j++) {
-//       footerHourlyTotal += COOKIE_STORES_ARRAY[j].cookiesPerHrObjectArray[i];
-//
-//       // if there's nothing in the array do a push else do a += at [i]
-//       if (FOOTER_COOKIE_TOTAL_ARRAY.length === 0) {
-//         FOOTER_COOKIE_TOTAL_ARRAY.push(footerHourlyTotal);
-//       } else {
-//         FOOTER_COOKIE_TOTAL_ARRAY[i] += footerHourlyTotal;
-//       }
-//     }
-//     // Reset footerHourlyTotal
-//     footerHourlyTotal = 0;
-//   }
-// };
 
 // Use a stand alone function to render the table header
 function renderHeaderRow() {
@@ -162,8 +130,6 @@ function renderHeaderRow() {
   var blankTableHeader = document.createElement('th'); // Create
   var totalTableHeader = document.createElement('th'); // Create
   var hourlyTableHeader;
-
-  //calcFooterCookieTotals(); //  TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST
 
   blankTableHeader.textContent = ''; // Update content
   tableHeaderRow.appendChild(blankTableHeader); // Append blank header at first column in the row
@@ -198,7 +164,7 @@ function renderFooterRow() {
 
   totalTableFooter.textContent = footerDailyTotal; // Update content
   tableFooterRow.appendChild(totalTableFooter); // Append after hourly table headers
-  storeFooterRow.appendChild(tableFooterRow); // Append the header row to the table
+  storeFooterRow.appendChild(tableFooterRow); // Append the footer row to the table
 }
 
 function makeCookieStoreTable() {
@@ -215,8 +181,16 @@ function makeCookieStoreTable() {
     COOKIE_STORES_ARRAY[i].calcFooterCookieTotals();// TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST
   }
 
-  // Make the table footer row
-  renderFooterRow();
+  if (COOKIE_STORES_ARRAY.length === 5) { // 5 is the stated amount of stores
+    // Make the table footer row
+    renderFooterRow();
+  } else { // remove child node from the DOM so a new footer with updated stores can render
+    var d = document.getElementById('table_area'); // get the parent
+    var d_nested = document.getElementById('table_footer'); // get the child
+    var throwawayNode = d.removeChild(d_nested); // store the removed child on a variable
+
+    renderFooterRow();
+  }
 }
 
 // EXECUTE CODE---EXECUTE CODE---EXECUTE CODE---EXECUTE CODE---EXECUTE CODE---EXECUTE CODE---EXECUTE CODE---EXECUTE CODE---EXECUTE CODE---
