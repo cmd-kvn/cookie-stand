@@ -3,9 +3,15 @@
   <head>
     <title></title>
     <link rel="stylesheet" type="text/css" href="style.css">
-    <link href="https://fonts.googleapis.com/css?family=Special+Elite|IM+Fell+English"
+    <link href="https://fonts.googleapis.com/css?family=Special+Elite|IM+Fell+English" rel="stylesheet">
   </head>
   <body>
+    <header>
+      <img src="salmon.png" alt="salmon.png logo" />
+      <p id='hdr-text'>Pat's Northwest Salmon Cookies</p>
+    </header>
+
+    <h1 class="sales_h1">Cookies Sold Totals by Hour and Location</h1>
     <table id="table_area">
       <thead id="table_header">
       </thead>
@@ -15,7 +21,7 @@
       </tfoot>
     </table>
 
-    <h2>Add a store</h2>
+    <h1 class="sales_h1">Add a store</h1>
     <form id="add_store_form">
       <input type="text" placeholder="Store name" name="store_name"> <!-- placeholders are greyed out text that disappears when text is entered -->
       <input type="number" placeholder="Minimum hourly customers" name="min_cust">

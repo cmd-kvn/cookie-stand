@@ -1,11 +1,11 @@
 body {
   background-image: url(salmon_square.jpg);
-  border: 2px dashed yellow;
+  /*border: 2px dashed yellow;*/
   width: 100%;
 }
 
 header {
-  border: 2px solid orange;
+  /*border: 2px solid orange;*/
   font-family: Special Elite;
   font-size: 3.5em;
   text-align: center;
@@ -16,12 +16,12 @@ header {
 }
 
 nav {
-  border: 1px solid black;
+  /*border: 1px solid black;*/
   width: 100%;
 }
 
 nav ul {
-  border: 2px solid blue;
+  /*border: 2px solid blue;*/
   background-color: #3c4663;
   color: #deada1;
   display: inline-block;
@@ -32,7 +32,7 @@ nav ul {
 }
 
 nav ul li {
-  border: 1px dashed orange;
+  /*border: 1px dashed orange;*/
   display: inline;
   margin: 30px;
   font-family: IM Fell English;
@@ -40,7 +40,7 @@ nav ul li {
 }
 
 main {
-  border: 3px solid green;
+  /*border: 3px solid green;*/
   background-color: #bb7365;
   width: 852px;
   margin: 0 auto;
@@ -64,7 +64,7 @@ img.medium_pic {
 }
 
 main div {
-  border: 3px dashed purple;
+  /*border: 3px dashed purple;*/
   background-color: #deada1;
   width: 250px;
   display: inline-block;
@@ -76,7 +76,7 @@ main div {
 }
 
 h2 {
-  border: 1px dashed red;
+  /*border: 1px dashed red;*/
   text-align: center;
   font-family: IM Fell English;
   color: black;
@@ -88,7 +88,7 @@ h4 {
 }
 
 section {
-  border: 1px solid yellow;
+  /*border: 1px solid yellow;*/
   background-color: #6d748c;
   clear: left;
   text-align: center;
@@ -109,7 +109,7 @@ button {
 }
 
 aside {
-  border: 1px dashed indigo;
+  /*border: 1px dashed indigo;*/
   width: 200px;
   position: fixed;
   bottom: 0px;
@@ -117,26 +117,37 @@ aside {
   font-family: helvetica;
 }
 
+aside p {
+  font-family: Special Elite;
+  text-shadow: #d3d3d3 1px 1px;
+  position: relative;
+  left: 0px;
+  top: 145px;
+}
+
 img.fixed_pic {
   width: 200px;
+  border-radius: 30px;
 }
 
 #ad {
-  border: 3px dashed red;
+  /*border: 3px dashed red;*/
+  font-family: Special Elite;
+  font-size: 14px;
   width: 200px;
   position: fixed;
-  top: 0px;
+  bottom: 0px;
   left: 0px;
 }
 
 footer {
-  border: 3px dashed black;
+  /*border: 3px dashed black;*/
   width: 852px;
   margin: 0 auto;
 }
 
 .ftr-column {
-  border: 3px dashed purple;
+  /*border: 3px dashed purple;*/
   background-color: #deada1;
   width: 250px;
   display: inline-block;
@@ -163,4 +174,10 @@ footer {
   background-color: #deada1;
   font-family: Arial;
   text-align: center;
+}
+
+h1.sales_h1 {
+  text-align: left;
+  font-family: IM Fell English;
+  margin-bottom: 0px;
 }
