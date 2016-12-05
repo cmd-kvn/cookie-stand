@@ -1,14 +1,19 @@
 /*
 Author: Kevin Wong
-Date: 11/16/16
-Description: cookie stand lab day 3
+Date: 11/17/16
+Description: cookie stand lab day 4
 */
 
 'use strict';
 
 // GLOBAL VARIABLES
-var OPEN_HOURS = ['6am', '7am', '8am', '9am', '10am', '11am', '12pm', '1pm', '2pm','3pm', '4pm', '5pm', '6pm', '7pm', '8pm'];
+var OPEN_HOURS = ['6am', '7am', '8am', '9am', '10am',
+  '11am', '12pm', '1pm', '2pm','3pm',
+  '4pm', '5pm', '6pm', '7pm', '8pm'];
 var COOKIE_STORES_ARRAY = [];
+var FOOTER_COOKIE_TOTAL_ARRAY = [];
+var footerDailyTotal = 0;
+
 
 function makeCookieStoreForm() {
   // Get the element
@@ -20,16 +25,18 @@ function makeCookieStoreForm() {
   // Create the handler
   // This function will take in the input from the user for a new cookie store, create a new cookie store object, and add it as a row to the table
   function handleSubmit(event) {
-    event.preventDefault();
+    event.preventDefault(); // Prevent the page from refreshing
 
     // Take in input
-    var storeName = event.target.store_name.value;
+    var storeName = event.target.store_name.value; // event.target is the form (in this case), event.target.someTarget fetches the node
     var minCust = event.target.min_cust.value;
     var maxCust = event.target.max_cust.value;
     var avgCookiesPerSale = event.target.avg_cookies_per_sale.value;
 
     // Handle input
     var addedStore = new CookieStore(storeName, minCust, maxCust, avgCookiesPerSale); // add new instance of a cookie store
+    addedStore.renderTableRow(); // generate the row on the table after calculating calcCookiesPerHr() within
+    // addedStore.calcCookiesPerHr(); // make the store's cookiesPerHrObjectArray
     COOKIE_STORES_ARRAY.push(addedStore); // push the new store to the array
 
     // Reset the fields
@@ -37,8 +44,6 @@ function makeCookieStoreForm() {
     event.target.min_cust.value = '';
     event.target.max_cust.value = '';
     event.target.avg_cookies_per_sale.value = '';
-
-    addedStore.renderTableRow(); // generate the row on the table
   }
 }
 
@@ -96,6 +101,28 @@ CookieStore.prototype.renderTableRow = function() {
   cookieStoreTable.appendChild(tableRow); // Append the row of the object to the table
 };
 
+// Calculates the hourly cookie sales after adding all the cookies at that hour at every store, then assembles the values in FOOTER_COOKIE_TOTAL_ARRAY
+CookieStore.prototype.calcFooterCookieTotals = function() {
+  var footerHourlyTotal = 0;
+
+  // Loop through the open hours
+  for(var i = 0; i < OPEN_HOURS.length; i++) {
+    //footerHourlyTotal = 0; // Reset the hourly total
+    footerHourlyTotal = this.cookiesPerHrObjectArray[i];
+    footerDailyTotal += footerHourlyTotal; // add the store's hourly total to the daily total
+
+    // If the FOOTER_COOKIE_TOTAL_ARRAY is empty, push the hourly total in
+    // else add it to the total for that hour
+    if(isNaN(FOOTER_COOKIE_TOTAL_ARRAY[i])) {
+      FOOTER_COOKIE_TOTAL_ARRAY.push(footerHourlyTotal);
+    } else {
+      FOOTER_COOKIE_TOTAL_ARRAY[i] += footerHourlyTotal;
+    }
+  }
+  FOOTER_COOKIE_TOTAL_ARRAY.push(footerDailyTotal);
+  console.log('footerDailyTotal: ', footerDailyTotal);
+};
+
 // Use a stand alone function to render the table header
 function renderHeaderRow() {
   var storeHeaderRow = document.getElementById('table_header'); // Locate
@@ -131,13 +158,13 @@ function renderFooterRow() {
 
   for (var i = 0; i < OPEN_HOURS.length; i++) {
     hourlyTotals = document.createElement('td'); // Create
-    hourlyTotals.textContent = 'calculate hourly totals'; // Update content
+    hourlyTotals.textContent = FOOTER_COOKIE_TOTAL_ARRAY[i]; // Update content
     tableFooterRow.appendChild(hourlyTotals);  // Append after the footer label
   }
 
-  totalTableFooter.textContent = 'Calculate daily total'; // Update content
+  totalTableFooter.textContent = footerDailyTotal; // Update content
   tableFooterRow.appendChild(totalTableFooter); // Append after hourly table headers
-  storeFooterRow.appendChild(tableFooterRow); // Append the header row to the table
+  storeFooterRow.appendChild(tableFooterRow); // Append the footer row to the table
 }
 
 function makeCookieStoreTable() {
@@ -151,15 +178,23 @@ function makeCookieStoreTable() {
   // write a for loop to call the .renderTableRow function for each object[i]
   for (var i = 0; i < COOKIE_STORES_ARRAY.length; i++) {
     COOKIE_STORES_ARRAY[i].renderTableRow();
+    COOKIE_STORES_ARRAY[i].calcFooterCookieTotals();// TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST
   }
 
-  // Make the table footer row
-  renderFooterRow();
+  if (COOKIE_STORES_ARRAY.length === 5) { // 5 is the stated amount of stores
+    // Make the table footer row
+    renderFooterRow();
+  } else { // remove child node from the DOM so a new footer with updated stores can render
+    var d = document.getElementById('table_area'); // get the parent
+    var d_nested = document.getElementById('table_footer'); // get the child
+    var throwawayNode = d.removeChild(d_nested); // store the removed child on a variable
+
+    renderFooterRow();
+  }
 }
 
 // EXECUTE CODE---EXECUTE CODE---EXECUTE CODE---EXECUTE CODE---EXECUTE CODE---EXECUTE CODE---EXECUTE CODE---EXECUTE CODE---EXECUTE CODE---
 // EXECUTE CODE---EXECUTE CODE---EXECUTE CODE---EXECUTE CODE---EXECUTE CODE---EXECUTE CODE---EXECUTE CODE---EXECUTE CODE---EXECUTE CODE---
-
 makeCookieStoreForm();
 makeCookieStoreTable();
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////

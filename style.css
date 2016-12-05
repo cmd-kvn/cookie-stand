@@ -1,0 +1,183 @@
+body {
+  background-image: url(salmon_square.jpg);
+  /*border: 2px dashed yellow;*/
+  width: 100%;
+}
+
+header {
+  /*border: 2px solid orange;*/
+  font-family: Special Elite;
+  font-size: 3.5em;
+  text-align: center;
+}
+
+#hdr-text {
+  margin: 0px;
+}
+
+nav {
+  /*border: 1px solid black;*/
+  width: 100%;
+}
+
+nav ul {
+  /*border: 2px solid blue;*/
+  background-color: #3c4663;
+  color: #deada1;
+  display: inline-block;
+  list-style: none;
+  width: 100%;
+  margin: 12px 0;
+  text-align: center;
+}
+
+nav ul li {
+  /*border: 1px dashed orange;*/
+  display: inline;
+  margin: 30px;
+  font-family: IM Fell English;
+  font-size: 30px;
+}
+
+main {
+  /*border: 3px solid green;*/
+  background-color: #bb7365;
+  width: 852px;
+  margin: 0 auto;
+}
+
+#main_photo_description {
+  position: relative;
+  bottom: 50px;
+  left: 20px;
+  display: inline;
+  font-size: 25px;
+  font-family: Special Elite;
+  background-color: rgba(211, 211, 211, 0.5);
+  border-radius: 7px;
+  padding: 3px;
+}
+
+img.medium_pic {
+  width: 250px;
+  height: 250px;
+}
+
+main div {
+  /*border: 3px dashed purple;*/
+  background-color: #deada1;
+  width: 250px;
+  display: inline-block;
+  float:left;
+  margin: 4px;
+  padding: 6px;
+  font-family: georgia;
+  color: #3c4663;
+}
+
+h2 {
+  /*border: 1px dashed red;*/
+  text-align: center;
+  font-family: IM Fell English;
+  color: black;
+}
+
+h4 {
+  font-family: IM Fell English;
+  padding-left: 6px;
+}
+
+section {
+  /*border: 1px solid yellow;*/
+  background-color: #6d748c;
+  clear: left;
+  text-align: center;
+  font-family: IM Fell English;
+  font-size: 30px;
+  color: #deada1;
+}
+
+button {
+  border: none;
+  background-image: url(chinook.jpg);
+  width: 200px;
+  padding: 15px 40px;
+  margin: 0 40px;
+  border-radius: 10px;
+  cursor: pointer;
+  display: inline;
+}
+
+aside {
+  /*border: 1px dashed indigo;*/
+  width: 200px;
+  position: fixed;
+  bottom: 0px;
+  right: 0px;
+  font-family: helvetica;
+}
+
+aside p {
+  font-family: Special Elite;
+  text-shadow: #d3d3d3 1px 1px;
+  position: relative;
+  left: 0px;
+  top: 145px;
+}
+
+img.fixed_pic {
+  width: 200px;
+  border-radius: 30px;
+}
+
+#ad {
+  /*border: 3px dashed red;*/
+  font-family: Special Elite;
+  font-size: 14px;
+  width: 200px;
+  position: fixed;
+  bottom: 0px;
+  left: 0px;
+}
+
+footer {
+  /*border: 3px dashed black;*/
+  width: 852px;
+  margin: 0 auto;
+}
+
+.ftr-column {
+  /*border: 3px dashed purple;*/
+  background-color: #deada1;
+  width: 250px;
+  display: inline-block;
+  float:left;
+  margin: 4px;
+  padding: 6px;
+  font-family: georgia;
+  font-size: 12px;
+}
+
+/* SALES HTML***SALES HTML***SALES HTML***SALES HTML***SALES HTML***SALES HTML***SALES HTML***SALES HTML***SALES HTML***/
+#table_header {
+  background-color: #bb7365;
+  font-family: Arial;
+}
+
+#table_body {
+  background-color: #ff8362;
+  font-family: Arial;
+  text-align: center;
+}
+
+#table_footer {
+  background-color: #deada1;
+  font-family: Arial;
+  text-align: center;
+}
+
+h1.sales_h1 {
+  text-align: left;
+  font-family: IM Fell English;
+  margin-bottom: 0px;
+}
